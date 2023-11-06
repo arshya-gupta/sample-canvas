@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Karma:wght@500&family=Merriweather:ital,wght@1,900&display=swap');
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100vw;
+    height: 100vh;
+}
+
+#mapCanvas {
+    width: 40% ;
+    height: 100vh;
+    border: 1px solid black;
+    background-image: url(nycmap.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+}
+
+.legend-container{
+    width: 20%;
+    height: 40%;
+    border: 1px solid black;
+    margin-right: 50px;
+    border-radius: 3%;
+}
+
+.info-heading{
+    font-family: 'Merriweather', serif;
+    margin-left: 5px;
+}
+
+.info-content{
+    font-family: 'Karma', serif;
+    margin-left: 5px;
+}
+
+.button{
+    border: none;
+    margin: 20px;
+    margin-left: 280px;
+    width: 80px;
+    height: 20px;
+}
+
+.button:hover{
+    font-style: italic;
+}
