@@ -1,38 +1,57 @@
-window.onload = function() {
-  // Get the canvas element and its 2D rendering context
-  const canvas = document.getElementById("mapCanvas");
-  const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("mapCanvas");
+const ctx = canvas.getContext("2d");
+const img = new Image();
 
-  if (!ctx) {
-    console.error("Canvas not supported in this browser.");
-    return;
-  }
+// Load your image
+img.src = "ues.png"; // Replace with the path to your image
 
-  // Set specific coordinates for the square
-  const squareX = 80; // X-coordinate
-  const squareY = 40; // Y-coordinate
-  let squareSize = 5;
-  let isHovered = false;
+let isHovered = false;
 
-  // Function to draw the square
-  function drawSquare() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillRect(squareX, squareY, squareSize*2, squareSize);
-  }
+// Define the image's initial position and scale
+let imageX = -15;
+let imageY = 3;
+let imageScale = 1;
 
-  // Function to handle hover event
-  canvas.addEventListener("mouseover", () => {
-    isHovered = true;
-    squareSize = 10; // Increase the square size on hover
-    drawSquare();
-  });
+img.onload = function() {
+    // Function to draw the image with scaling
+    function drawImage() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  canvas.addEventListener("mouseout", () => {
-    isHovered = false;
-    squareSize = 5; // Restore the original square size on hover out
-    drawSquare();
-  });
+        ctx.drawImage(
+            img,
+            imageX,
+            imageY,
+            canvas.width * imageScale,
+            canvas.height * imageScale
+        );
+    }
 
-  // Initial draw
-  drawSquare();
+    // Initial draw
+    drawImage();
+
+    // Handle hover events
+    canvas.addEventListener("mouseover", function() {
+        isHovered = true;
+        imageScale = 1.02; // Adjust the scale factor as desired
+        drawImage();
+    });
+
+    canvas.addEventListener("mouseout", function() {
+        isHovered = false;
+        imageScale = 1;
+        drawImage();
+    });
+
+    // Continuously update the canvas
+    function animate() {
+        if (isHovered) {
+            imageScale = 1.02; // Adjust the scale factor as desired
+        } else {
+            imageScale = 1;
+        }
+        drawImage();
+        requestAnimationFrame(animate);
+    }
+
+    animate();
 };
